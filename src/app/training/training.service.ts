@@ -20,13 +20,13 @@ export class TrainingService {
 
     startExercise(selectedId: string) {
         this.runningExercise = this.availableExercises.find(ex => ex.id === selectedId);
-        this.exerciseChanged.next({ ...this.runningExercise })
+        this.exerciseChanged.next({ ...this.runningExercise });
     }
 
     completeExpercise() {
         this.exercises.push({
-            ...this.runningExercise, 
-            date: new Date(), 
+            ...this.runningExercise,
+            date: new Date(),
             state: 'completed'
         });
         this.runningExercise = null;
@@ -35,10 +35,10 @@ export class TrainingService {
 
     cancelExercise(progress: number) {
         this.exercises.push({
-            ...this.runningExercise, 
-            duration: this.runningExercise.duration * (progress /100),
+            ...this.runningExercise,
+            duration: this.runningExercise.duration * (progress / 100),
             calories: this.runningExercise.calories * (progress / 100),
-            date: new Date(), 
+            date: new Date(),
             state: 'cancelled'
         });
         this.runningExercise = null;

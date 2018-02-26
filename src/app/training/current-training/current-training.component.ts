@@ -39,7 +39,7 @@ export class CurrentTrainingComponent implements OnInit {
         const dialogRef = this.dialog.open(StopTrainingComponent, {
             data: {
             progress: this.progress
-        }})
+        }});
 
         dialogRef.afterClosed().subscribe(result => {
             if (result) {

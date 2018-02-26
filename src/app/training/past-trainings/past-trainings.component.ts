@@ -27,6 +27,9 @@ export class PastTrainingsComponent implements OnInit, AfterViewInit {
     ngAfterViewInit() {
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
+
+        console.log(this.sort);
+        console.log(this.paginator);
     }
 
     doFilter(filterValue: string) {
