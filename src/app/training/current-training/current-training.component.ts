@@ -12,7 +12,7 @@ import { TrainingService } from '../training.service';
 })
 export class CurrentTrainingComponent implements OnInit {
     progress = 0;
-    timer: number;
+    timer: any; // should be type number
 
     constructor(
         private dialog: MatDialog,

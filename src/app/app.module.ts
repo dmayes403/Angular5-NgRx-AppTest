@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
@@ -20,36 +21,39 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
 import { StopTrainingComponent } from './training/current-training/stop-training.component';
 import { AuthService } from './auth/auth.service';
 import { TrainingService } from './training/training.service';
+import { environment } from '../environments/environment';
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    SignupComponent,
-    LoginComponent,
-    TrainingComponent,
-    CurrentTrainingComponent,
-    NewTrainingComponent,
-    PastTrainingsComponent,
-    WelcomeComponent,
-    HeaderComponent,
-    SidenavListComponent,
-    StopTrainingComponent
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    MaterialModule,
-    AppRoutingModule,
-    FlexLayoutModule,
-    FormsModule,
-    ReactiveFormsModule
-  ],
-  providers: [
-    AuthService,
-    TrainingService
-  ],
-  bootstrap: [AppComponent],
-  entryComponents: [StopTrainingComponent]
+    declarations: [
+        AppComponent,
+        SignupComponent,
+        LoginComponent,
+        TrainingComponent,
+        CurrentTrainingComponent,
+        NewTrainingComponent,
+        PastTrainingsComponent,
+        WelcomeComponent,
+        HeaderComponent,
+        SidenavListComponent,
+        StopTrainingComponent
+    ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        MaterialModule,
+        AppRoutingModule,
+        FlexLayoutModule,
+        FormsModule,
+        ReactiveFormsModule,
+        AngularFireModule.initializeApp(environment.firebase),
+        AngularFirestoreModule
+    ],
+    providers: [
+        AuthService,
+        TrainingService
+    ],
+    bootstrap: [AppComponent],
+    entryComponents: [StopTrainingComponent]
 })
 export class AppModule { }
