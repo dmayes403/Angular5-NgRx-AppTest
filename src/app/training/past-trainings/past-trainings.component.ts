@@ -18,7 +18,9 @@ export class PastTrainingsComponent implements OnInit, AfterViewInit, OnDestroy 
     @ViewChild(MatSort) sort: MatSort;
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
-    constructor(private trainingService: TrainingService) { }
+    constructor(
+        private trainingService: TrainingService
+    ) { }
 
     ngOnInit() {
         this.exChangedSubscription = this.trainingService.finishedExercisesChanged.subscribe(

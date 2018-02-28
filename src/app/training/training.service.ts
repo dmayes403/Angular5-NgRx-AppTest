@@ -15,7 +15,10 @@ export class TrainingService {
     private runningExercise: Exercise;
     private fbSubs: Subscription[] = [];
 
-    constructor(private db: AngularFirestore, private uiService: UIService) { }
+    constructor(
+        private db: AngularFirestore,
+        private uiService: UIService
+    ) { }
 
     fetchAvailableExercises() {
         this.uiService.loadingStateChanged.next(true);
