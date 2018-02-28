@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
 import { AngularFirestore } from 'angularfire2/firestore';
+import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs';
 
 import { Exercise } from './exercise.model';
@@ -15,10 +15,7 @@ export class TrainingService {
     private runningExercise: Exercise;
     private fbSubs: Subscription[] = [];
 
-    constructor(
-        private db: AngularFirestore,
-        private uiService: UIService
-    ) {}
+    constructor(private db: AngularFirestore, private uiService: UIService) { }
 
     fetchAvailableExercises() {
         this.uiService.loadingStateChanged.next(true);
@@ -26,7 +23,7 @@ export class TrainingService {
             .collection('availableExercises')
             .snapshotChanges()
             .map(docArray => {
-                // throw(new Error);
+                // throw(new Error());
                 return docArray.map(doc => {
                     return {
                         id: doc.payload.doc.id,
@@ -42,18 +39,20 @@ export class TrainingService {
                 this.exercisesChanged.next([...this.availableExercises]);
             }, error => {
                 this.uiService.loadingStateChanged.next(false);
-                this.uiService.showSnackbar('Fetching Exercises Failed, please try again later', null, 3000);
+                this.uiService.showSnackbar('Fetching Exercises failed, please try again later', null, 3000);
                 this.exercisesChanged.next(null);
             }));
     }
 
     startExercise(selectedId: string) {
         // this.db.doc('availableExercises/' + selectedId).update({lastSelected: new Date()});
-        this.runningExercise = this.availableExercises.find(ex => ex.id === selectedId);
+        this.runningExercise = this.availableExercises.find(
+            ex => ex.id === selectedId
+        );
         this.exerciseChanged.next({ ...this.runningExercise });
     }
 
-    completeExpercise() {
+    completeExercise() {
         this.addDataToDatabase({
             ...this.runningExercise,
             date: new Date(),

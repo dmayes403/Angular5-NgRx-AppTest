@@ -9,19 +9,15 @@ import { AuthService } from '../../auth/auth.service';
     styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-    @Output()
-    sidenavToggle = new EventEmitter<void>();
-
+    @Output() sidenavToggle = new EventEmitter<void>();
     isAuth = false;
     authSubscription: Subscription;
 
-    constructor(
-        private authService: AuthService
-    ) { }
+    constructor(private authService: AuthService) { }
 
     ngOnInit() {
         this.authSubscription = this.authService.authChange.subscribe(authStatus => {
-            this.isAuth = authStatus
+            this.isAuth = authStatus;
         });
     }
 

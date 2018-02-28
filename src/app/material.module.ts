@@ -65,4 +65,4 @@ import {
         MatSnackBarModule
     ]
 })
-export class MaterialModule {}
+export class MaterialModule { }

@@ -15,18 +15,17 @@ export class LoginComponent implements OnInit, OnDestroy {
     isLoading = false;
     private loadingSubs: Subscription;
 
-    constructor(
-        private authService: AuthService,
-        private uiService: UIService
-    ) { }
+    constructor(private authService: AuthService, private uiService: UIService) { }
 
     ngOnInit() {
         this.loadingSubs = this.uiService.loadingStateChanged.subscribe(isLoading => {
             this.isLoading = isLoading;
         });
         this.loginForm = new FormGroup({
-            email: new FormControl('', {validators: [Validators.required, Validators.email]}),
-            password: new FormControl('', {validators: [Validators.required]})
+            email: new FormControl('', {
+                validators: [Validators.required, Validators.email]
+            }),
+            password: new FormControl('', { validators: [Validators.required] })
         });
     }
 
@@ -38,7 +37,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this.loadingSubs.unsubscribe();
+        if (this.loadingSubs) {
+            this.loadingSubs.unsubscribe();
+        }
     }
-
 }

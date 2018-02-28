@@ -1,7 +1,8 @@
-import { Subject } from 'rxjs/Subject';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs/Subject';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { MatSnackBar } from '@angular/material';
 
 import { User } from './user.model';
 import { AuthData } from './auth-data.model';
@@ -18,7 +19,7 @@ export class AuthService {
         private afAuth: AngularFireAuth,
         private trainingService: TrainingService,
         private uiService: UIService
-    ) {}
+    ) { }
 
     initAuthListener() {
         this.afAuth.authState.subscribe(user => {
@@ -37,41 +38,33 @@ export class AuthService {
 
     registerUser(authData: AuthData) {
         this.uiService.loadingStateChanged.next(true);
-        this.afAuth.auth.createUserWithEmailAndPassword(
-            authData.email,
-            authData.password
-        ).then(result => {
-            this.uiService.loadingStateChanged.next(false);
-        })
-        .catch(error => {
-            this.uiService.loadingStateChanged.next(false);
-            this.uiService.showSnackbar(error.message, null, 3000);
-        });
+        this.afAuth.auth
+            .createUserWithEmailAndPassword(authData.email, authData.password)
+            .then(result => {
+                this.uiService.loadingStateChanged.next(false);
+            })
+            .catch(error => {
+                this.uiService.loadingStateChanged.next(false);
+                this.uiService.showSnackbar(error.message, null, 3000);
+            });
     }
 
     login(authData: AuthData) {
         this.uiService.loadingStateChanged.next(true);
-        this.afAuth.auth.signInWithEmailAndPassword(
-            authData.email,
-            authData.password
-        ).then(result => {
-            this.uiService.loadingStateChanged.next(false);
-        })
-        .catch(error => {
-            this.uiService.loadingStateChanged.next(false);
-            this.uiService.showSnackbar(error.message, null, 3000);
-        });
+        this.afAuth.auth
+            .signInWithEmailAndPassword(authData.email, authData.password)
+            .then(result => {
+                this.uiService.loadingStateChanged.next(false);
+            })
+            .catch(error => {
+                this.uiService.loadingStateChanged.next(false);
+                this.uiService.showSnackbar(error.message, null, 3000);
+            });
     }
 
     logout() {
         this.afAuth.auth.signOut();
     }
-
-    // getUser() {
-        // return { ...this.user };
-        // ^^ this is done to prevent the overriding of the private user variable
-        // lecture 55 section 5 @ 6:00
-    // }
 
     isAuth() {
         return this.isAuthenticated;

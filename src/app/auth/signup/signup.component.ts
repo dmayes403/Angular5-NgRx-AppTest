@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { NgForm } from '@angular/forms/src/directives/ng_form';
+import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 import { AuthService } from '../auth.service';
@@ -15,10 +15,7 @@ export class SignupComponent implements OnInit, OnDestroy {
     isLoading = false;
     private loadingSubs: Subscription;
 
-    constructor(
-        private authService: AuthService,
-        private uiService: UIService
-    ) { }
+    constructor(private authService: AuthService, private uiService: UIService) { }
 
     ngOnInit() {
         this.loadingSubs = this.uiService.loadingStateChanged.subscribe(isLoading => {
@@ -34,8 +31,10 @@ export class SignupComponent implements OnInit, OnDestroy {
             password: form.value.password
         });
     }
-    
+
     ngOnDestroy() {
-        this.loadingSubs.unsubscribe();
+        if (this.loadingSubs) {
+            this.loadingSubs.unsubscribe();
+        }
     }
 }
