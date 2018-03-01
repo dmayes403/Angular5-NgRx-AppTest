@@ -14,4 +14,4 @@ export class StopLoading implements Action {
 
 export type UIActions = StartLoading | StopLoading;
 
-// the export of classes is easily get type matching and autocomplete help
+// the export of classes is to easily get type matching and autocomplete help

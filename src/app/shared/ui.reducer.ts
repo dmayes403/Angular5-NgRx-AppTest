@@ -5,7 +5,7 @@ import { UIActions, START_LOADING, STOP_LOADING } from './ui.actions';
 
 export interface State {
     isLoading: boolean;
-};
+}
 // ^^ this is the type of this reducer
 
 const initialState: State = {
@@ -26,7 +26,7 @@ export function uiReducer(state = initialState, action: UIActions) {
             return state;
         }
     }
-};
+}
 
 export const getIsLoading = (state: State) => state.isLoading;
 // ^^ this allows the parent reducer to have quick access to the isLoading portion of state
