@@ -7,7 +7,7 @@ import { Store } from '@ngrx/store';
 
 import { AuthService } from '../auth.service';
 import { UIService } from '../../shared/ui.service';
-import * as fromApp from '../../app.reducer';
+import * as fromRoot from '../../app.reducer';
 // *** ^^ required for ngrx
 
 @Component({
@@ -24,17 +24,14 @@ export class LoginComponent implements OnInit {
     constructor(
         private authService: AuthService,
         private uiService: UIService,
-        private store: Store<{ui: fromApp.State}>
+        private store: Store<fromRoot.State>
         // *** ^^ required for ngrx
     ) { }
 
     ngOnInit() {
-        this.isLoading$ = this.store.map(state => state.ui.isLoading);
+        this.isLoading$ = this.store.select(fromRoot.getIsLoading);
         // *** ^^ required for ngrx - this returns an observable which is unwrapped by the
-        // async keyword
-        // this.loadingSubs = this.uiService.loadingStateChanged.subscribe(isLoading => {
-        //     this.isLoading = isLoading;
-        // });
+        // async keyword. This access the selector created in app.reducer.
         this.loginForm = new FormGroup({
             email: new FormControl('', {
                 validators: [Validators.required, Validators.email]
@@ -49,10 +46,4 @@ export class LoginComponent implements OnInit {
             password: this.loginForm.value.password
         });
     }
-
-    // ngOnDestroy() {
-    //     if (this.loadingSubs) {
-    //         this.loadingSubs.unsubscribe();
-    //     }
-    // }
 }

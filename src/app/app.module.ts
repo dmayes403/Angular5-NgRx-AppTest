@@ -19,7 +19,7 @@ import { TrainingService } from './training/training.service';
 import { environment } from '../environments/environment';
 import { UIService } from './shared/ui.service';
 import { AuthModule } from './auth/auth.module';
-import { appReducer } from './app.reducer';
+import { reducers } from './app.reducer';
 // *** ^^ required for ngrx
 
 @NgModule({
@@ -38,7 +38,7 @@ import { appReducer } from './app.reducer';
         AngularFireModule.initializeApp(environment.firebase),
         AuthModule,
         AngularFirestoreModule,
-        StoreModule.forRoot({ui: appReducer})
+        StoreModule.forRoot(reducers)
         // *** ^^ required for ngrx
     ],
     providers: [AuthService, TrainingService, UIService],
