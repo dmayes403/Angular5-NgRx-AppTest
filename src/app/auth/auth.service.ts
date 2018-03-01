@@ -30,11 +30,9 @@ export class AuthService {
     initAuthListener() {
         this.afAuth.authState.subscribe(user => {
             if (user) {
-                console.log('1');
                 this.store.dispatch(new Auth.SetAuthenticated());
                 this.router.navigate(['/training']);
             } else {
-                console.log('2');
                 this.trainingService.cancelSubscriptions();
                 this.store.dispatch(new Auth.SetUnauthenticated());
                 this.router.navigate(['/login']);
