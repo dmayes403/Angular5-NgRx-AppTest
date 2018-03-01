@@ -2,7 +2,7 @@
 // ****** IF LAZY LOADING IS NOT USED, THE FORMAT CAN BE THE SAME AS OTHER REDUCERS
 
 // *** ^^ required for ngrx
-import { Action } from '@ngrx/store';
+import { Action, createFeatureSelector, createSelector } from '@ngrx/store';
 
 import {
     TrainingActions,
@@ -31,7 +31,7 @@ const initialState: TrainingState = {
     activeTraining: null
 };
 
-export function authReducer(state = initialState, action: TrainingActions) {
+export function trainingReducer(state = initialState, action: TrainingActions) {
     switch (action.type) {
         case SET_AVAILABLE_TRAININGS:
             return {
@@ -49,7 +49,8 @@ export function authReducer(state = initialState, action: TrainingActions) {
         case START_TRAINING:
             return {
                 ...state,
-                activeTraining: action.payload
+                activeTraining: { ...state.availableExercises.find(ex => ex.id === action.payload) }
+                // ^^ '...' spread operator creates a new immutable object
             };
         case STOP_TRAINING:
             return {
@@ -62,8 +63,12 @@ export function authReducer(state = initialState, action: TrainingActions) {
     }
 }
 
-export const getAvailableExercises = (state: TrainingState) => state.availableExercises;
-// ^^ this allows the parent reducer to have quick access to the availableExercises portion of state
-export const getFinishedExercises = (state: TrainingState) => state.finishedExercises;
-export const getActiveTraining = (state: TrainingState) => state.activeTraining;
 
+export const getTrainingState = createFeatureSelector<TrainingState>('training');
+
+export const getAvailableExercises = createSelector(getTrainingState, (state: TrainingState) => state.availableExercises);
+// ^^ this allows the parent reducer to have quick access to the availableExercises portion of state
+export const getFinishedExercises = createSelector(getTrainingState, (state: TrainingState) => state.finishedExercises);
+export const getActiveTraining = createSelector(getTrainingState, (state: TrainingState) => state.activeTraining);
+export const getIsTraining = createSelector(getTrainingState, (state: TrainingState) => state.activeTraining != null);
+// ^^ this just returns a boolean of whether a training is currently active or not. '!=' is used instead of '!==' to also cover undefined
