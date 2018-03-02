@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 // ^^ rxjs 6.0+ doesn't require /Observable, rxjs alone will work
 import { map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';

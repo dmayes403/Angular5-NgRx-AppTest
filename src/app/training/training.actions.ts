@@ -7,6 +7,8 @@ export const SET_FINISHED_TRAININGS = '[Training] Set Finished Trainings';
 export const START_TRAINING = '[Training] Start Training';
 export const STOP_TRAINING = '[Training] Stop Training';
 // ^^ bracket naming convention is to signify what reducer it belongs to
+export const FETCH_TRAININGS = '[Training] Fetch Trainings';
+export const FETCH_TRAININGS_TEST = '[Training] Fetch Trainings Test';
 
 export class SetAvailableTrainings implements Action {
     readonly type = SET_AVAILABLE_TRAININGS;
@@ -32,6 +34,22 @@ export class StopTraining implements Action {
 // active training not needed to pass with stop training action,
 // because ngrx already knows what it is
 
-export type TrainingActions = SetAvailableTrainings | SetFinishedTrainings | StartTraining | StopTraining;
+export class FetchTrainings implements Action {
+    readonly type = FETCH_TRAININGS;
+}
+
+export class FetchTrainingsTest implements Action {
+    readonly type = FETCH_TRAININGS_TEST;
+
+    constructor(public payload: Exercise[]) {}
+}
+
+export type TrainingActions =
+    SetAvailableTrainings |
+    SetFinishedTrainings |
+    StartTraining |
+    StopTraining |
+    FetchTrainings |
+    FetchTrainingsTest;
 
 // the export of classes is to easily get type matching and autocomplete help

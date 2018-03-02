@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { Subscription } from 'rxjs';
+import { Subscription } from 'rxjs/Subscription';
 import { take } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 
@@ -25,6 +25,7 @@ export class TrainingService {
     ) { }
 
     fetchAvailableExercises() {
+        // this.store.dispatch(new Training.FetchTrainings());
         this.store.dispatch(new UI.StartLoading);
         this.fbSubs.push(this.db
             .collection('availableExercises')

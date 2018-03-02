@@ -7,6 +7,9 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { StoreModule } from '@ngrx/store';
 // *** ^^ required for ngrx
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
@@ -38,8 +41,10 @@ import { reducers } from './app.reducer';
         AngularFireModule.initializeApp(environment.firebase),
         AuthModule,
         AngularFirestoreModule,
-        StoreModule.forRoot(reducers)
+        StoreRouterConnectingModule,
+        StoreModule.forRoot(reducers),
         // *** ^^ required for ngrx
+        // !environment.production ? StoreDevtoolsModule.instrument() : []
     ],
     providers: [AuthService, TrainingService, UIService],
     bootstrap: [AppComponent]
